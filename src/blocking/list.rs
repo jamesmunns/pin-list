@@ -31,6 +31,8 @@ impl<R: ScopedRawMutex + ConstInit, T> Default for PinList<R, T> {
     }
 }
 
+unsafe impl<R: ScopedRawMutex, T: Send> Sync for PinList<R, T> {}
+
 pub(crate) struct PinListInner<T> {
     pub(crate) list: List<Node<T>>,
 }
