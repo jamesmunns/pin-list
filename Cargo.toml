@@ -1,0 +1,12 @@
+[package]
+name = "pinlist"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cordyceps = "0.3.4"
+mutex = "1.0.0"
+pin-project = "1.1.10"
+
+[features]
+std = []
