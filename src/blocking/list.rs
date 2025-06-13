@@ -1,12 +1,34 @@
 use core::pin::Pin;
 
 use cordyceps::List;
-use mutex::{BlockingMutex, ScopedRawMutex};
+use mutex::{BlockingMutex, ConstInit, ScopedRawMutex};
 
 use super::node::Node;
 
 pub struct PinList<R: ScopedRawMutex, T> {
     pub(crate) inner: BlockingMutex<R, PinListInner<T>>,
+}
+
+impl<R: ScopedRawMutex + ConstInit, T> PinList<R, T> {
+    pub const fn new() -> Self {
+        Self {
+            inner: BlockingMutex::new(PinListInner { list: List::new() }),
+        }
+    }
+}
+
+impl<R: ScopedRawMutex, T> PinList<R, T> {
+    pub const fn new_manual(r: R) -> Self {
+        Self {
+            inner: BlockingMutex::const_new(r, PinListInner { list: List::new() }),
+        }
+    }
+}
+
+impl<R: ScopedRawMutex + ConstInit, T> Default for PinList<R, T> {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 pub(crate) struct PinListInner<T> {
