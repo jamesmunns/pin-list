@@ -3,7 +3,7 @@ use core::pin::Pin;
 use cordyceps::List;
 use mutex::{BlockingMutex, ConstInit, ScopedRawMutex};
 
-use super::node::Node;
+use super::node::NodeHeader;
 
 pub struct PinList<R: ScopedRawMutex, T> {
     pub(crate) inner: BlockingMutex<R, PinListInner<T>>,
@@ -34,7 +34,7 @@ impl<R: ScopedRawMutex + ConstInit, T> Default for PinList<R, T> {
 unsafe impl<R: ScopedRawMutex, T: Send> Sync for PinList<R, T> {}
 
 pub(crate) struct PinListInner<T> {
-    pub(crate) list: List<Node<T>>,
+    pub(crate) list: List<NodeHeader<T>>,
 }
 
 impl<R: ScopedRawMutex, T> PinList<R, T> {
@@ -62,7 +62,7 @@ impl<R: ScopedRawMutex, T> PinList<R, T> {
 }
 
 pub struct Iter<'a, T> {
-    iter: cordyceps::list::Iter<'a, Node<T>>,
+    iter: cordyceps::list::Iter<'a, NodeHeader<T>>,
 }
 
 impl<'a, T> Iterator for Iter<'a, T> {
@@ -74,7 +74,7 @@ impl<'a, T> Iterator for Iter<'a, T> {
 }
 
 pub struct IterMut<'a, T> {
-    iter: cordyceps::list::IterMut<'a, Node<T>>,
+    iter: cordyceps::list::IterMut<'a, NodeHeader<T>>,
 }
 
 impl<'a, T> Iterator for IterMut<'a, T> {
