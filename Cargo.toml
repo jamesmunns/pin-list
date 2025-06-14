@@ -1,12 +1,28 @@
 [package]
 name = "pinlist"
+authors = ["James Munns <james@onevariable.com>"]
 version = "0.1.0"
 edition = "2024"
+readme = "README.md"
+repository = "https://github.com/jamesmunns/pin-list"
+description = "a safe and easy version of intrusive linked lists"
+license = "MIT OR Apache-2.0"
+categories = [
+    "embedded",
+    "no-std",
+]
+keywords = []
+documentation = "https://docs.rs/pinlist/"
 
 [dependencies]
-cordyceps = "0.3.4"
-mutex = "1.0.0"
+cordyceps   = "0.3.4"
+mutex       = "1.0.0"
 pin-project = "1.1.10"
+
+critical-section = { version = "1.0", optional = true }
 
 [features]
 std = []
+_docs = [
+    "critical-section/std"
+]

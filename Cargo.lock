@@ -171,6 +171,7 @@ name = "pinlist"
 version = "0.1.0"
 dependencies = [
  "cordyceps",
+ "critical-section",
  "mutex",
  "pin-project",
 ]
