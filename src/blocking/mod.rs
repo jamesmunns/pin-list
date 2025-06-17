@@ -70,6 +70,7 @@
 
 mod list;
 mod node;
+pub mod dynlist;
 
 pub use list::{Iter, IterMut, IterPinMut, PinList};
 pub use node::{Node, NodeHandle};

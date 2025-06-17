@@ -23,6 +23,7 @@ critical-section = { version = "1.0", optional = true }
 
 [features]
 std = []
+nightly = []
 _docs = [
     "critical-section/std"
 ]
